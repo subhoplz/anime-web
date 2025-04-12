@@ -69,7 +69,7 @@ export async function getUpcomingAnime(): Promise<Anime[]> {
 
     if (data.errors) {
       console.error("Error fetching anime:", data.errors);
-      throw new Error("Failed to fetch anime from AniList");
+      throw new Error("Failed to fetch anime from AniList: " + data.errors.map((e: any) => e.message).join(", "));
     }
 
     const animeList = data.data.Page.media.map((anime: any) => {
@@ -89,8 +89,8 @@ export async function getUpcomingAnime(): Promise<Anime[]> {
     });
 
     return animeList;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching anime:", error);
-    return [];
+    throw new Error("Failed to fetch anime. Please check the console for details.");
   }
 }

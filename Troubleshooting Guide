@@ -1,0 +1,152 @@
+
+## Troubleshooting Internal Server Errors in AniRelease Notifier
+
+An "Internal Server Error" (HTTP status code 500) indicates that something went wrong on the server while processing a request.  Here's a breakdown of how to diagnose and fix this in your AniRelease Notifier Next.js application:
+
+**1. Check the Server Logs:**
+
+   - **Cloudflare Pages:**  Log into your Cloudflare account, navigate to your Pages project, and look for the "Logs" tab.  Examine the logs for any error messages, stack traces, or other clues that indicate the source of the problem.
+   - **Local Development:** If you're running the application locally (`npm run dev`), the server logs will be displayed in your terminal.
+
+**2. Identify the Error:**
+
+   - **Common Causes:**
+      - **Unhandled Exceptions:**  An error occurred in your code that wasn't caught by a `try...catch` block.
+      - **API Endpoint Issues:** Problems with fetching data from external APIs (e.g., AniList).
+      - **Database Errors:** (If you were using a database) Issues connecting to or querying the database.
+      - **Server Actions:** Errors occurring within Server Actions.
+      - **Genkit Flows:** Errors within your Genkit AI flows (e.g., `generate-notification-message.ts`).
+      - **Environment Variables:** Missing or incorrect environment variables (e.g., `GOOGLE_GENAI_API_KEY`).
+
+**3. Debug Specific Areas:**
+
+   - **AniList API:**
+      - **Network Issues:** Verify that your server can reach the AniList API (`https://graphql.anilist.co`).  Check for DNS resolution problems or firewall restrictions.
+      - **API Errors:** Inspect the API response for error messages.  The `getUpcomingAnime()` function in `src/services/anime.ts` already includes some error handling, but you can add more detailed logging.
+
+      ```typescript
+      // src/services/anime.ts
+      try {
+        const response = await fetch('https://graphql.anilist.co', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            query: query
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.errors) {
+          console.error("Error fetching anime:", data.errors); // Keep this
+          console.log("Full API Response:", data); // Add this to see the raw response
+          throw new Error("Failed to fetch anime from AniList");
+        }
+
+        // ... rest of your code
+      } catch (error) {
+        console.error("Error fetching anime:", error);
+        return [];
+      }
+      ```
+
+   - **Genkit Flows:**
+      - Check the Genkit server logs (if you're running `genkit start`).
+      - Add logging to your Genkit flows (e.g., `src/ai/flows/generate-notification-message.ts`) to track the input and output values.
+
+      ```typescript
+      // src/ai/flows/generate-notification-message.ts
+      import { ai } from '@/ai/ai-instance';
+      // ... other imports
+
+      export async function generateNotificationMessage(
+        input: GenerateNotificationMessageInput
+      ): Promise<GenerateNotificationMessageOutput> {
+        console.log("generateNotificationMessage input:", input); // Add this line
+        const result = await generateNotificationMessageFlow(input);
+        console.log("generateNotificationMessage output:", result); // Add this line
+        return result;
+      }
+
+      // ... rest of your code
+      ```
+
+   - **Server Actions:** If you're using Server Actions (e.g., for user login or tracking anime), make sure to handle errors within the action and log any exceptions.
+
+   - **Environment Variables:**
+      - Double-check that you have set the `GOOGLE_GENAI_API_KEY` environment variable in your Cloudflare Pages settings and in your local `.env` file (if you have one).
+      - Verify that the value is correct.
+
+**4. Examine the Browser Console:**
+
+   - The browser's developer console might provide additional information about the error, such as JavaScript errors or failed network requests.  This is especially helpful if the error occurs during client-side rendering or interaction.
+
+**5. Reproduce the Error:**
+
+   - Try to reproduce the error consistently.  Note the exact steps that lead to the error.  This will make it easier to debug.
+
+**6. Implement Error Boundaries:**
+
+   - Use React Error Boundaries to gracefully handle errors that occur during rendering.  This prevents the entire application from crashing.
+   - Consider adding error boundaries around specific components that are prone to errors (e.g., the `AnimeList` component).
+
+**7. Test Thoroughly:**
+
+   - After making changes, test the application thoroughly to ensure that the error is resolved and that no new errors have been introduced.
+
+**Example Error Boundary:**
+
+```typescript
+// src/components/ErrorBoundary.tsx (Create a new file)
+"use client";
+
+import React, { useState } from 'react';
+
+interface Props {
+  children: React.ReactNode;
+}
+
+const ErrorBoundary: React.FC<Props> = ({ children }) => {
+  const [hasError, setHasError] = useState(false);
+
+  static getDerivedStateFromError() {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  React.useEffect(() => {
+    // Log the error to an error reporting service
+  }, [hasError]);
+
+  if (hasError) {
+    // You can render any custom fallback UI
+    return (
+      <div>
+        <h2>Something went wrong.</h2>
+        {/* Optionally, provide a way to reload the page */}
+        <button onClick={() => setHasError(false)}>Try again</button>
+      </div>
+    );
+  }
+
+  return children;
+};
+
+export default ErrorBoundary;
+
+// src/app/page.tsx
+import ErrorBoundary from "@/components/ErrorBoundary";
+export default function Home() {
+  return (
+    <ErrorBoundary>
+      {/* Your Home component content */}
+    </ErrorBoundary>
+  );
+}
+```
+
+By systematically checking logs, identifying the error, and debugging specific areas of your application, you should be able to resolve the "Internal Server Error."
+    
