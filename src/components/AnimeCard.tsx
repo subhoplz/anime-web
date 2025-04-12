@@ -13,20 +13,20 @@ interface AnimeCardProps {
 
 export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack, isTracked, releaseDateFormatted }) => {
   return (
-    <Card className="w-full md:w-[300px] rounded-lg shadow-md overflow-hidden">
+    <Card className="w-full md:w-[300px] rounded-lg shadow-md overflow-hidden bg-card text-card-foreground">
       <CardHeader>
-        <CardTitle>{anime.title}</CardTitle>
-        <CardDescription>{releaseDateFormatted}</CardDescription>
+        <CardTitle className="text-xl font-semibold">{anime.title}</CardTitle>
+        <CardDescription className="text-sm text-muted-foreground">{releaseDateFormatted}</CardDescription>
       </CardHeader>
       <CardContent className="p-4">
         <img src={anime.coverImage} alt={anime.title} className="w-full h-48 object-cover mb-4 rounded" />
         {isTracked(anime) ? (
-          <button onClick={() => onUntrack(anime)} className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Untrack
+          <button onClick={() => onUntrack(anime)} className="w-full bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold py-2 px-4 rounded">
+            No, un-track!
           </button>
         ) : (
-          <button onClick={() => onTrack(anime)} className="w-full bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
-            Track
+          <button onClick={() => onTrack(anime)} className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-bold py-2 px-4 rounded">
+            Gotta track 'em all!
           </button>
         )}
       </CardContent>
