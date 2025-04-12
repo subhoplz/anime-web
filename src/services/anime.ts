@@ -45,6 +45,9 @@ export async function getUpcomingAnime(): Promise<Anime[]> {
             month
             day
           }
+          nextAiringEpisode {
+            airingAt
+          }
         }
       }
     }
@@ -69,12 +72,21 @@ export async function getUpcomingAnime(): Promise<Anime[]> {
       throw new Error("Failed to fetch anime from AniList");
     }
 
-    const animeList = data.data.Page.media.map((anime: any) => ({
-      id: String(anime.id),
-      title: anime.title.romaji,
-      coverImage: anime.coverImage.large,
-      releaseDate: anime.startDate.year ? `${anime.startDate.year}-${anime.startDate.month}-${anime.startDate.day}` : 'Unknown',
-    }));
+    const animeList = data.data.Page.media.map((anime: any) => {
+      let releaseTime = 'Unknown';
+      if (anime.nextAiringEpisode && anime.nextAiringEpisode.airingAt) {
+        const airingDate = new Date(anime.nextAiringEpisode.airingAt * 1000); // convert seconds to milliseconds
+        releaseTime = airingDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      return {
+        id: String(anime.id),
+        title: anime.title.romaji,
+        coverImage: anime.coverImage.large,
+        releaseDate: anime.startDate.year ? `${anime.startDate.year}-${anime.startDate.month}-${anime.startDate.day}` : 'Unknown',
+        releaseTime: releaseTime,
+      };
+    });
 
     return animeList;
   } catch (error) {

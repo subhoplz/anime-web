@@ -23,7 +23,7 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack,
       <CardHeader>
         <CardTitle className="text-xl font-semibold">{anime.title}</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">{releaseDateFormatted}</CardDescription>
-        {anime.releaseTime && (
+        {anime.releaseTime && anime.releaseTime !== 'Unknown' && (
           <CardDescription className="text-sm text-muted-foreground">
             Release Time: {anime.releaseTime}
           </CardDescription>
