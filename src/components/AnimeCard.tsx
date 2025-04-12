@@ -1,3 +1,5 @@
+"use client";
+
 import { Anime } from "@/services/anime";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -6,14 +8,15 @@ interface AnimeCardProps {
   onTrack: (anime: Anime) => void;
   onUntrack: (anime: Anime) => void;
   isTracked: (anime: Anime) => boolean;
+  releaseDateFormatted: string;
 }
 
-export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack, isTracked }) => {
+export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack, isTracked, releaseDateFormatted }) => {
   return (
     <Card className="w-full md:w-[300px] rounded-lg shadow-md overflow-hidden">
       <CardHeader>
         <CardTitle>{anime.title}</CardTitle>
-        <CardDescription>{new Date(anime.releaseDate).toLocaleDateString()}</CardDescription>
+        <CardDescription>{releaseDateFormatted}</CardDescription>
       </CardHeader>
       <CardContent className="p-4">
         <img src={anime.coverImage} alt={anime.title} className="w-full h-48 object-cover mb-4 rounded" />

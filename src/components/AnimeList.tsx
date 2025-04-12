@@ -42,15 +42,19 @@ export const AnimeList: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-      {animeList.map((anime) => (
-        <AnimeCard
-          key={anime.id}
-          anime={anime}
-          onTrack={handleTrack}
-          onUntrack={handleUntrack}
-          isTracked={isTracked}
-        />
-      ))}
+      {animeList.map((anime) => {
+        const releaseDateFormatted = new Date(anime.releaseDate).toLocaleDateString();
+        return (
+          <AnimeCard
+            key={anime.id}
+            anime={anime}
+            onTrack={handleTrack}
+            onUntrack={handleUntrack}
+            isTracked={isTracked}
+            releaseDateFormatted={releaseDateFormatted}
+          />
+        );
+      })}
     </div>
   );
 };
