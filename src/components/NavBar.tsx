@@ -9,16 +9,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Icons } from "@/components/icons";
+import Link from "next/link";
 
 export const NavBar = () => {
   return (
     <nav className="bg-background border-b border-border h-16 flex items-center justify-between px-4">
       <div className="flex items-center">
-        <a href="/" className="text-lg font-bold">AniRelease Notifier</a>
+        <Link href="/" className="text-lg font-bold">AniRelease Notifier</Link>
       </div>
       <div className="flex items-center space-x-4">
         <Button variant="outline">
-          <a href="/about">About</a>
+          <Link href="/episodes">Episodes</Link>
+        </Button>
+        <Button variant="outline">
+          <Link href="/new-anime">New Anime Release</Link>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -60,4 +64,3 @@ export const NavBar = () => {
     </nav>
   );
 };
-

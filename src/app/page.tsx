@@ -8,8 +8,22 @@ export default function Home() {
     <>
       <NavBar />
       <div className="container mx-auto py-10">
-        <h1 className="text-3xl font-bold mb-5">Upcoming Anime Releases</h1>
-        <AnimeList />
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Upcoming Anime Releases</h2>
+          <AnimeList />
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Anime News</h2>
+          <p className="text-muted-foreground">Latest news about upcoming anime.</p>
+          {/* Add Anime News Component here */}
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-semibold mb-4">Release Timetable</h2>
+          <p className="text-muted-foreground">A complete timetable of anime releases.</p>
+          {/* Add Release Timetable Component here */}
+        </section>
       </div>
     </>
   );
