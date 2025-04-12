@@ -23,6 +23,11 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack,
       <CardHeader>
         <CardTitle className="text-xl font-semibold">{anime.title}</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">{releaseDateFormatted}</CardDescription>
+        {anime.releaseTime && (
+          <CardDescription className="text-sm text-muted-foreground">
+            Release Time: {anime.releaseTime}
+          </CardDescription>
+        )}
       </CardHeader>
       <CardContent className="p-4">
         <img src={anime.coverImage} alt={anime.title} className="w-full h-48 object-cover mb-4 rounded" />
@@ -54,4 +59,3 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack,
     </Card>
   );
 };
-

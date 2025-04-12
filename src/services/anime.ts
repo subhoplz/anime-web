@@ -18,6 +18,10 @@ export interface Anime {
    * The release date of the anime in ISO format.
    */
   releaseDate: string;
+    /**
+   * The release time of the anime episode.
+   */
+  releaseTime?: string;
 }
 
 /**
