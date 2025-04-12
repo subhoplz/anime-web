@@ -9,7 +9,7 @@ export default function Home() {
       <NavBar />
       <div className="container mx-auto py-10">
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Upcoming Anime Releases</h2>
+          <h2 className="text-2xl font-semibold mb-4">Most Trending Anime</h2>
           <AnimeList />
         </section>
 
