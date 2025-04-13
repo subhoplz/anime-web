@@ -2,9 +2,6 @@
 
 import { Anime } from "@/services/anime";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 interface AnimeCardProps {
@@ -16,8 +13,6 @@ interface AnimeCardProps {
 }
 
 export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack, isTracked, releaseDateFormatted }) => {
-  const [date, setDate] = useState<Date>();
-
   let releaseTimeFormatted = 'Unknown';
   if (anime.releaseTime && anime.releaseTime !== 'Unknown') {
     try {
@@ -50,21 +45,6 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack,
       </CardHeader>
       <CardContent className="p-4">
         <img src={anime.coverImage} alt={anime.title} className="w-full h-48 object-cover mb-4 rounded" />
-        <Popover>
-          <PopoverTrigger asChild>
-            <button className="w-full bg-accent hover:bg-accent/80 text-accent-foreground font-bold py-2 px-4 rounded">
-              Show Release Calendar
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="center" side="bottom">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className={cn("border-0")}
-            />
-          </PopoverContent>
-        </Popover>
         {isTracked(anime) ? (
           <button onClick={() => onUntrack(anime)} className="w-full bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold py-2 px-4 rounded mt-2">
             No, un-track!
