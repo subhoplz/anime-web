@@ -9,5 +9,7 @@ name = 'animeupdate'
 enabled = true
 
 
+main = "./.cloudflare/worker.mjs"
+compatibility_date = "2025-04-13"
 
 
