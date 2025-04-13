@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
-    "build": "next build && next-on-pages build",
+    "build": "next build",
     "deploy": "npx wrangler deploy",
     "postbuild": "cp -r .next .cloudflare/ && [ -d public ] && cp -r public .cloudflare/ || echo 'No public directory to copy.' && echo 'Cloudflare build preparation complete.'",
     "start": "next start",
