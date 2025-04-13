@@ -1,7 +1,9 @@
-toml
-name = "nextjs-app"  # You can choose a suitable name for your app
-compatibility_date = "2023-07-01"
+name = "anime-updates-worker"
+type = "javascript"
+account_id = "sdsd52748@gmail.com" # Replace with your actual account ID
+workers_dev = true
 
 [site]
-bucket = ".cloudflare"
+bucket = ".cloudflare/" # Directory for your static assets
+
 
