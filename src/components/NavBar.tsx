@@ -19,10 +19,10 @@ export const NavBar = () => {
       </div>
       <div className="flex items-center space-x-4">
         <Button variant="outline">
-          <Link href="/episodes">Episodes</Link>
+          <Link href="https://example.com/episodes">Episodes</Link>
         </Button>
         <Button variant="outline">
-          <Link href="/new-anime">New Anime Release</Link>
+          <Link href="https://example.com/new-anime">New Anime Release</Link>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
