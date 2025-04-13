@@ -1,10 +1,7 @@
-name = "anime-updates-worker"
-type = "javascript"
-account_id = "sdsd52748@gmail.com" # Replace with your actual account ID
-workers_dev = true
-main = "./dist/index.js"
+# wrangler.toml
+name = 'animeupdate'
 
 [site]
-bucket = ".cloudflare/" # Directory for your static assets
+  bucket = ".cloudflare"
 
 
