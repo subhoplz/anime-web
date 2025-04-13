@@ -2,11 +2,14 @@ name = "animeupdate" # You may want to rename this to something more descriptive
 
 compatibility_date = "2023-07-01" # It's recommended to use an older compatibility date
 
-[site]
-bucket = ".cloudflare"
-pages_build_output_dir = ".cloudflare"
+# Remove the type field
+# type = "javascript"
 
-[observability.logs]
-enabled = true
+# Keep this line
+pages_build_output_dir = ".next"
+
+# Remove the observability section completely
+# [observability.logs]
+# enabled = true
 
 
