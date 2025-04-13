@@ -3,6 +3,7 @@
 import { Anime } from "@/services/anime";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
+import Image from "next/image";
 
 interface AnimeCardProps {
   anime: Anime;
@@ -44,7 +45,14 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack,
         )}
       </CardHeader>
       <CardContent className="p-4">
-        <img src={anime.coverImage} alt={anime.title} className="w-full h-48 object-cover mb-4 rounded" />
+        <Image
+          src={anime.coverImage}
+          alt={anime.title}
+          width={300}
+          height={450}
+          className="w-full h-48 object-cover mb-4 rounded"
+          loading="lazy"
+        />
         {isTracked(anime) ? (
           <button onClick={() => onUntrack(anime)} className="w-full bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold py-2 px-4 rounded mt-2">
             No, un-track!
