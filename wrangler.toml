@@ -6,7 +6,7 @@ compatibility_date = "2023-07-01" # It's recommended to use an older compatibili
 # type = "javascript"
 
 # Keep this line
-pages_build_output_dir = ".next"
+pages_build_output_dir = ".cloudflare"
 
 # Remove the observability section completely
 # [observability.logs]
