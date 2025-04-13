@@ -1,0 +1,7 @@
+toml
+name = "nextjs-app"  # You can choose a suitable name for your app
+compatibility_date = "2023-07-01"
+
+[site]
+bucket = ".cloudflare"
+
