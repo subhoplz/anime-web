@@ -1,15 +1,12 @@
-# wrangler.toml
-name = 'animeupdate'
+name = "animeupdate" # You may want to rename this to something more descriptive, like "nextjs-app"
+
+compatibility_date = "2023-07-01" # It's recommended to use an older compatibility date
 
 [site]
-  bucket = ".cloudflare"
+bucket = ".cloudflare"
+pages_build_output_dir = ".cloudflare"
 
-# wrangler.toml (wrangler v3.88.0^)
 [observability.logs]
 enabled = true
-
-
-main = "./.cloudflare/worker.mjs"
-compatibility_date = "2025-04-13"
 
 
