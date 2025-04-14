@@ -8,19 +8,19 @@ body {
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 210 20% 98%;
+    --background: 260 30% 8%; /* Dark Purple */
+    --foreground: 210 20% 98%; /* Light Gray */
     --card: 222 47% 11%;
     --card-foreground: 210 20% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 20% 98%;
     --primary: 142 78% 45%;
     --primary-foreground: 210 20% 98%;
-    --secondary: 215 27% 16%;
+    --secondary: 340 60% 30%; /* Hot Pink */
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27% 16%;
     --muted-foreground: 217 19% 60%;
-    --accent: 142 78% 45%;
+    --accent: 50 80% 50%; /* Electric Lime */
     --accent-foreground: 210 20% 98%;
     --destructive: 0 63% 51%;
     --destructive-foreground: 210 20% 98%;
@@ -32,31 +32,31 @@ body {
     --chart-3: 30 93% 51%;
     --chart-4: 121 98% 53%;
     --chart-5: 39 98% 57%;
-    --radius: 0.5rem;
-    --sidebar-background: 222 47% 11%;
+    --radius: 0.75rem; /* Increased rounded corners */
+    --sidebar-background: 260 40% 10%; /* Darker Purple */
     --sidebar-foreground: 210 20% 98%;
-    --sidebar-primary: 142 78% 45%;
-    --sidebar-primary-foreground: 210 20% 98%;
-    --sidebar-accent: 215 27% 16%;
-    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-primary: 50 80% 50%; /* Electric Lime */
+    --sidebar-primary-foreground: 230 15% 85%;
+    --sidebar-accent: 340 60% 30%; /* Hot Pink */
+    --sidebar-accent-foreground: 230 15% 85%;
     --sidebar-border: 215 27% 16%;
     --sidebar-ring: 142 78% 45%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 20% 98%;
+    --background: 260 30% 8%; /* Dark Purple */
+    --foreground: 210 20% 98%; /* Light Gray */
     --card: 222 47% 11%;
     --card-foreground: 210 20% 98%;
     --popover: 222 47% 11%;
     --popover-foreground: 210 20% 98%;
     --primary: 142 78% 45%;
     --primary-foreground: 210 20% 98%;
-    --secondary: 215 27% 16%;
+    --secondary: 340 60% 30%; /* Hot Pink */
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27% 16%;
     --muted-foreground: 217 19% 60%;
-    --accent: 142 78% 45%;
+    --accent: 50 80% 50%; /* Electric Lime */
     --accent-foreground: 210 20% 98%;
     --destructive: 0 63% 51%;
     --destructive-foreground: 210 20% 98%;
