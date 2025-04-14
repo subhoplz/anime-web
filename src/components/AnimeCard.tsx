@@ -2,7 +2,7 @@
 
 import { Anime } from "@/services/anime";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 interface AnimeCardProps {
