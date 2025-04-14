@@ -69,7 +69,7 @@ export const AnimeList: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-      {animeList.map((anime) => {
+      {animeList.map((anime, index) => { // Added index here
         const releaseDateFormatted = anime.releaseDate !== 'Unknown' ? new Date(anime.releaseDate).toLocaleDateString() : 'Unknown';
         return (
           <AnimeCard
@@ -79,6 +79,7 @@ export const AnimeList: React.FC = () => {
             onUntrack={handleUntrack}
             isTracked={isTracked}
             releaseDateFormatted={releaseDateFormatted}
+            index={index} // Pass index to AnimeCard
           />
         );
       })}

@@ -11,9 +11,10 @@ interface AnimeCardProps {
   onUntrack: (anime: Anime) => void;
   isTracked: (anime: Anime) => boolean;
   releaseDateFormatted: string;
+  index: number; // Added index prop
 }
 
-export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack, isTracked, releaseDateFormatted }) => {
+export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack, isTracked, releaseDateFormatted, index }) => {
   let releaseTimeFormatted = 'Unknown';
   if (anime.releaseTime && anime.releaseTime !== 'Unknown') {
     try {
@@ -51,8 +52,8 @@ export const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onTrack, onUntrack,
           width={300}
           height={450}
           className="w-full h-48 object-cover mb-4 rounded"
-          loading="lazy" // Added lazy loading
-          priority={false} // Disable priority for offscreen images
+          loading={index === 0 ? undefined : 'lazy'} // Only lazy load if not the first image
+          priority={index === 0} // Set priority only for the first image (index 0)
         />
         {isTracked(anime) ? (
           <button onClick={() => onUntrack(anime)} className="w-full bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold py-2 px-4 rounded mt-2">
