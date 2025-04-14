@@ -1,6 +1,6 @@
-import type {NextConfig} from 'next';
+/** @type {import('next').NextConfig} */
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
   typescript: {
     ignoreBuildErrors: false, // Changed to false
@@ -34,19 +34,19 @@ const nextConfig: NextConfig = {
         openAnalyzer: true,
       }));
     }
-    config.module.rules.push({
-      test: /worker\.js$/,
-      use: {
-        loader: 'worker-loader',
-        options: {
-          name: 'worker.[hash].js',
-          publicPath: '/_next/',
-        },
-      },
-    });
+    // config.module.rules.push({
+    //   test: /worker\.js$/,
+    //   use: {
+    //     loader: 'worker-loader',
+    //     options: {
+    //       name: 'worker.[hash].js',
+    //       publicPath: '/_next/',
+    //     },
+    //   },
+    // });
 
     return config;
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
