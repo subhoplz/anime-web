@@ -2,8 +2,44 @@
 
 import { AnimeList } from "@/components/AnimeList";
 import { NavBar } from "@/components/NavBar";
+import { useEffect, useState } from "react";
+import { getVapidPublicKey, subscribeUser } from "@/services/notification";
 
 export default function Home() {
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [publicKey, setPublicKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPublicKey = async () => {
+      const key = await getVapidPublicKey();
+      setPublicKey(key);
+    };
+
+    fetchPublicKey();
+  }, []);
+
+  const subscribe = async () => {
+    if (!('serviceWorker' in navigator)) {
+      console.error('Service workers are not supported.');
+      return;
+    }
+
+    const registration = await navigator.serviceWorker.register('/worker.js');
+
+    const subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: publicKey,
+    });
+
+    const response = await subscribeUser(subscription);
+
+    if (response.success) {
+      setIsSubscribed(true);
+    } else {
+      console.error('Subscription failed:', response.error);
+    }
+  };
+
   return (
     <>
       <NavBar />
@@ -24,6 +60,9 @@ export default function Home() {
           <p className="text-muted-foreground">A complete timetable of anime releases.</p>
           {/* Add Release Timetable Component here */}
         </section>
+        {publicKey && !isSubscribed && (
+          <button onClick={subscribe}>Subscribe to Notifications</button>
+        )}
       </div>
     </>
   );
