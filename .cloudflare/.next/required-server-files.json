@@ -2,12 +2,11 @@
   "version": 1,
   "config": {
     "env": {},
-    "webpack": null,
     "eslint": {
-      "ignoreDuringBuilds": true
+      "ignoreDuringBuilds": false
     },
     "typescript": {
-      "ignoreBuildErrors": true,
+      "ignoreBuildErrors": false,
       "tsconfigPath": "tsconfig.json"
     },
     "distDir": ".next",
@@ -53,6 +52,7 @@
       "disableStaticImages": false,
       "minimumCacheTTL": 60,
       "formats": [
+        "image/avif",
         "image/webp"
       ],
       "dangerouslyAllowSVG": false,

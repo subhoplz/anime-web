@@ -23,8 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Moved the comment outside the tag
-    <html lang="en" suppressHydrationWarning={true}> 
+    <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <link rel="preconnect" href="https://s4.anilist.co" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
