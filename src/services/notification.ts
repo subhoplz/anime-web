@@ -31,8 +31,18 @@ try {
 
 export async function subscribeUser(subscription: PushSubscription) {
   console.log('[Server] subscribeUser called with subscription:', subscription);
-  // TODO: Store the subscription securely
-  return { success: true };
+  try {
+    // TODO: Store the subscription securely.  If storing fails, this should return an error.
+    // For now, we'll simulate a potential error.
+    const simulateStorageError = false; // Change this to true to simulate an error
+    if (simulateStorageError) {
+      throw new Error('Failed to store subscription.');
+    }
+    return { success: true };
+  } catch (error: any) {
+    console.error('[Server] Error storing subscription:', error);
+    return { success: false, error: error.message || 'Failed to subscribe user' };
+  }
 }
 
 export async function sendNotification(subscription: PushSubscription, payload: string) {
