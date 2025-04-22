@@ -3,7 +3,6 @@
 // Import necessary types
 import type { NextConfig } from 'next';
 import type { Configuration as WebpackConfig } from 'webpack';
-// Let Next.js infer the type for the context object
 // Assuming webpack-bundle-analyzer is installed as a dev dependency
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
@@ -29,8 +28,8 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },
-  // Remove explicit type for context, allow inference
-  webpack: (config: WebpackConfig, context): WebpackConfig => {
+  // Add type annotations to the webpack function signature
+  webpack: (config: WebpackConfig, context: any) => {
     // Destructure context inside the function
     const { buildId, dev, isServer, webpack } = context; // defaultLoaders might also be needed if used
 
