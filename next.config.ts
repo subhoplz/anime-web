@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {
+// Import necessary types
+import type { NextConfig } from 'next';
+import type { Configuration as WebpackConfig } from 'webpack';
+import type { NextJsWebpackConfigContext } from 'next/dist/server/config-shared';
+// Assuming webpack-bundle-analyzer is installed as a dev dependency
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
+const nextConfig: NextConfig = {
   typescript: {
+    // Consider removing ignoreBuildErrors if you want TypeScript to enforce types during build
     ignoreBuildErrors: false,
   },
   eslint: {
@@ -21,9 +29,16 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  // Add type annotations to the webpack function signature
+  webpack: (config: WebpackConfig, context: NextJsWebpackConfigContext): WebpackConfig => {
+    // Destructure context inside the function
+    const { buildId, dev, isServer, webpack } = context; // defaultLoaders might also be needed if used
+
     if (process.env.ANALYZE === 'true') {
-      config.plugins.push(new webpack.webpack.BundleAnalyzerPlugin({
+      // Ensure plugins array exists
+      config.plugins = config.plugins || [];
+      // Use the imported BundleAnalyzerPlugin
+      config.plugins.push(new BundleAnalyzerPlugin({
         analyzerMode: 'server',
         analyzerPort: isServer ? 8888 : 9999,
         openAnalyzer: true,
@@ -33,4 +48,5 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// Use export default for ESM
+export default nextConfig;
