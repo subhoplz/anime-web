@@ -3,7 +3,8 @@
 // Import necessary types
 import type { NextConfig } from 'next';
 import type { Configuration as WebpackConfig } from 'webpack';
-import type { NextJsWebpackConfigContext } from 'next/dist/server/config-shared';
+// Use WebpackConfigContext from 'next/dist/shared/lib/utils' or directly use the type inferred by Next.js
+import type { WebpackConfigContext } from 'next/dist/shared/lib/utils'; 
 // Assuming webpack-bundle-analyzer is installed as a dev dependency
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
@@ -29,8 +30,8 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },
-  // Add type annotations to the webpack function signature
-  webpack: (config: WebpackConfig, context: NextJsWebpackConfigContext): WebpackConfig => {
+  // Update type annotations to use the correct context type
+  webpack: (config: WebpackConfig, context: WebpackConfigContext): WebpackConfig => {
     // Destructure context inside the function
     const { buildId, dev, isServer, webpack } = context; // defaultLoaders might also be needed if used
 
