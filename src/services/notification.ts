@@ -45,7 +45,7 @@ export async function subscribeUser(subscription: PushSubscription) {
   }
 }
 
-export async function sendNotification(subscription: PushSubscription, payload: string) {
+export async function sendNotification(subscription: any, payload: string) {
   console.log('[Server] sendNotification called.');
   console.log('[Server] Attempting to send notification to endpoint:', subscription.endpoint);
   console.log('[Server] Payload:', payload);
