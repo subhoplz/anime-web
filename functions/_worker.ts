@@ -1,10 +1,10 @@
 import {getUpcomingAnime} from '../src/services/anime';
 
-export async function onRequest(context) {
+export async function onRequest(context: { request: Request, next: () => Promise<Response> }) {
   return handleRequest(context);
 }
 
-async function handleRequest(context) {
+async function handleRequest(context: { request: Request }) {
   // Get the client's IP address
   const ip = context.request.headers.get('CF-Connecting-IP');
 
@@ -16,12 +16,12 @@ async function handleRequest(context) {
   });
 }
 
-export const onRequestGet = async (context: any) => {
+export const onRequestGet = async (context: { request: Request }) => {
   // Handle the request
   return await handleRequest(context);
 };
 
-export const onRequestPost = async (context: any) => {
+export const onRequestPost = async (context: { request: Request }) => {
   // Handle the request
   return await handleRequest(context);
 };
@@ -39,7 +39,7 @@ export const scheduleUpdateAnimeList = async () => {
   }
 };
 
-export const onRequestCron = async (context: any) => {
+export const onRequestCron = async (context: { request: Request, waitUntil: (promise: Promise<any>) => void }) => {
   console.log('CRON triggered!');
   try {
     const result = await scheduleUpdateAnimeList();
