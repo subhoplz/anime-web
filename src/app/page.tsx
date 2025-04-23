@@ -3,10 +3,10 @@
 import { AnimeList } from "@/components/AnimeList";
 import { NavBar } from "@/components/NavBar";
 import { useEffect, useState } from "react";
-// Import the Server Action and the VAPID key getter
-import { sendNotificationAction } from './actions'; // Import the server action
-import { subscribeUser } from "@/services/notification"; // Keep for subscribing
+import { sendNotificationAction } from './actions';
+import { subscribeUser } from "@/services/notification";
 import { getVapidPublicKey } from "@/services/vapid";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function Home() {
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -20,7 +20,7 @@ export default function Home() {
     setPublicKey(key);
     console.log('[Client] VAPID Public Key:', key);
     setIsServiceWorkerSupported('serviceWorker' in navigator);
-  }, []); // Dependency array for first useEffect
+  }, []);
 
   useEffect(() => {
     console.log('[Client] useEffect 2 called!');
@@ -78,9 +78,8 @@ export default function Home() {
         console.log('[Client] Service workers are NOT supported in this browser.');
       }
     }
-  }, [publicKey, isServiceWorkerSupported]); // Dependency array for second useEffect
+  }, [publicKey, isServiceWorkerSupported]);
 
-  // --- Example: Add a button to send a notification manually --- 
   const handleManualSend = async () => {
     if (!currentSubscription) {
       alert('Not subscribed yet!');
@@ -98,7 +97,6 @@ export default function Home() {
       }
     }
   };
-  // --- End Manual Send Example --- 
 
   return (
     <>
@@ -129,7 +127,28 @@ export default function Home() {
             <p>Service Workers are not supported by your browser. Notifications unavailable.</p>
           )}
         </section>
+
+          {/* Trial Card */}
+          <section className="mt-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Trial Notification</CardTitle>
+                <CardDescription>
+                  Click the button below to send a test notification.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <button 
+                  onClick={() => sendNotificationAction(JSON.stringify({title: 'Trial Notification', body: 'This is a trial notification!' }))}
+                  className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Send Trial Notification
+                </button>
+              </CardContent>
+            </Card>
+          </section>
       </div>
     </>
   );
 }
+
